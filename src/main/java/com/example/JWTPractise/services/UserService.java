@@ -24,14 +24,14 @@ public class UserService {
         return userRepo.save(user);
     }
 
-    public String verify(LoginRequest request)
+    public boolean verify(LoginRequest request)
     {
         Authentication authentication = authenticationManager.
                 authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
         if(authentication.isAuthenticated())
         {
-            return "Success";
+            return true;
         }
-        return "Not authenticated";
+        return false;
     }
 }

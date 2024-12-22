@@ -56,18 +56,9 @@ public class MainController {
     }
     @PostMapping("/signin")
     public String signInUser(@RequestBody LoginRequest req) {
-        userService.verify(req);
-        return jwtService.createJWT(req.getUsername());
+        if(userService.verify(req)) return jwtService.createJWTFromUsername(req.getUsername());;
+        return "Unauthorized";
     }
 
 
-//    @PostMapping("/signin")
-//    public ResponseEntity<String> signIn(@RequestBody LoginRequest req){
-//        Authentication authentication = authenticationManager.authenticate(
-//                new UsernamePasswordAuthenticationToken(req.getUsername(),
-//                        req.getPassword()));
-//        SecurityContextHolder.getContext().setAuthentication(authentication);
-//        CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
-//        return new ResponseEntity<>("Welcome "+userDetails.getUsername(), HttpStatus.OK);
-//    }
 }
